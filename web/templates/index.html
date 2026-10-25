@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Review Sentiment Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="bg-blob bg-blob-a" aria-hidden="true"></div>
+    <div class="bg-blob bg-blob-b" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="hero">
+        <div class="hero-badge" aria-hidden="true">💬</div>
+        <h1>Review Sentiment</h1>
+        <p class="tagline">Positive or negative — powered by document embeddings and k-NN</p>
+      </header>
+
+      <section class="card" id="model-status" aria-live="polite">
+        <p class="status-line">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Checking model…</span>
+        </p>
+        <p class="status-meta" id="status-meta" hidden></p>
+      </section>
+
+      <section class="card">
+        <label class="field" for="review-text">
+          <span class="field-label">Your review</span>
+          <textarea
+            id="review-text"
+            rows="5"
+            placeholder="Paste or type a short product, movie, or restaurant review…"
+          ></textarea>
+        </label>
+
+        <div class="examples">
+          <span class="examples-label">Try an example:</span>
+          <div class="example-chips">
+            {% for ex in examples %}
+            <button type="button" class="chip" data-text="{{ ex.text }}">{{ ex.text }}</button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <button type="button" id="btn-analyze" class="btn btn-primary" disabled>Analyze sentiment</button>
+        <p id="error-text" class="error" role="alert" hidden></p>
+      </section>
+
+      <section class="card result-card" id="result-card" hidden>
+        <p class="result-label">Prediction</p>
+        <p class="result-sentiment" id="result-sentiment"></p>
+        <div class="prob-bars">
+          <div class="prob-row">
+            <span>Negative</span>
+            <div class="prob-track"><div class="prob-fill neg" id="bar-neg"></div></div>
+            <span id="pct-neg" class="prob-pct"></span>
+          </div>
+          <div class="prob-row">
+            <span>Positive</span>
+            <div class="prob-track"><div class="prob-fill pos" id="bar-pos"></div></div>
+            <span id="pct-pos" class="prob-pct"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="help card" aria-labelledby="help-heading">
+        <h2 id="help-heading">Help</h2>
+        <h3>About this app</h3>
+        <p>
+          This tool classifies short reviews as <strong>positive</strong> or
+          <strong>negative</strong>. Text is tokenized and mapped to a
+          <strong>Doc2Vec</strong> vector, then a <strong>k-nearest neighbors</strong>
+          classifier (k=9) picks the label. The model is trained on thousands of
+          labelled sentences from review sites (cached locally after the first run).
+        </p>
+        <h3>How to use it</h3>
+        <ol>
+          <li>Wait until the status shows the model is <strong>ready</strong>.</li>
+          <li>Enter or paste a review, or click an example chip.</li>
+          <li>Click <strong>Analyze sentiment</strong> to see the label and scores.</li>
+        </ol>
+        <p class="fine-print">Runs entirely on this server — your text is not sent to a third-party API.</p>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
