@@ -118,3 +118,12 @@ analyzeBtn.addEventListener("click", () => {
 
 pollStatus();
 pollTimer = setInterval(pollStatus, 2500);
+
+document.querySelectorAll("[data-help-jump]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.getElementById("help-heading")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
+});

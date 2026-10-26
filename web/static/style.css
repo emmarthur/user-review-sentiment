@@ -313,6 +313,24 @@ textarea:focus {
   margin: 0.35rem 0 0;
 }
 
+.help-jump-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.help-jump-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .fine-print {
   margin-top: 1rem;
   font-size: 0.8125rem !important;
